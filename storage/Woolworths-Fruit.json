@@ -1,0 +1,271 @@
+[
+    {
+        "id": 133211,
+        "name": "Cavendish Bananas",
+        "description": "Cavendish Bananas Each",
+        "price": 0.72,
+        "category": "BANANA"
+    },
+    {
+        "id": 105919,
+        "name": "Fresh Pink Lady Apples",
+        "description": "Fresh Pink Lady Apples Each",
+        "price": 0.61,
+        "category": "APPLE"
+    },
+    {
+        "id": 144607,
+        "name": "Strawberries",
+        "description": "Strawberries 250g Punnet",
+        "price": 5.5,
+        "category": "STRAWBERRY",
+        "brand": "gala berry"
+    },
+    {
+        "id": 120384,
+        "name": "Woolworths Red Watermelon Cut Quarter",
+        "description": "Woolworths Red Watermelon Cut Quarter Each",
+        "price": 5.5,
+        "category": "MELONS",
+        "brand": "Woolworths"
+    },
+    {
+        "id": 829107,
+        "name": "Mandarin Amorette Seedless",
+        "description": "Mandarin Amorette Seedless Each",
+        "price": 0.59,
+        "category": "MANDARIN"
+    },
+    {
+        "id": 130935,
+        "name": "Fresh Granny Smith Apples",
+        "description": "Fresh Granny Smith Apples Each",
+        "price": 0.79,
+        "category": "APPLE"
+    },
+    {
+        "id": 157649,
+        "name": "Eat Later Cavendish Bananas",
+        "description": "Eat Later Cavendish Bananas Each",
+        "price": 0.72,
+        "category": "BANANA"
+    },
+    {
+        "id": 155003,
+        "name": "Apple Royal Gala",
+        "description": "Apple Royal Gala Each",
+        "price": 0.78,
+        "category": "APPLE"
+    },
+    {
+        "id": 259450,
+        "name": "Orange Navel",
+        "description": "Orange Navel Each",
+        "price": 1.16,
+        "category": "CITRUS"
+    },
+    {
+        "id": 310968,
+        "name": "Woolworths Fresh Pink Lady Apples Punnet",
+        "description": "Woolworths Fresh Pink Lady Apples Punnet 1kg",
+        "price": 3.5,
+        "category": "APPLE",
+        "brand": "Woolworths"
+    },
+    {
+        "id": 165262,
+        "name": "Driscoll's Raspberries Punnet",
+        "description": "Raspberries 125g Punnet",
+        "price": 5.5,
+        "category": "RUBUS AND OTHER BERRY",
+        "brand": "Driscoll's"
+    },
+    {
+        "id": 115330,
+        "name": "Fresh Packham Pear",
+        "description": "Fresh Packham Pear Each",
+        "price": 1.04,
+        "category": "PEAR"
+    },
+    {
+        "id": 139238,
+        "name": "Kiwi Fruit Green",
+        "description": "Kiwi Fruit Green Each",
+        "price": 0.95,
+        "category": "TROPICAL FRUIT"
+    },
+    {
+        "id": 800774,
+        "name": "The Odd Bunch Pear Prepacked",
+        "description": "The Odd Bunch Pear Prepacked 1kg",
+        "price": 3.6,
+        "category": "PEAR",
+        "brand": "The Odd Bunch"
+    },
+    {
+        "id": 259514,
+        "name": "Lemon Fresh",
+        "description": "Lemon Fresh Each",
+        "price": 1.21,
+        "category": "CITRUS"
+    },
+    {
+        "id": 651492,
+        "name": "Mandarin Tangold Seedless",
+        "description": "Mandarin Tangold Seedless Each",
+        "price": 0.77,
+        "category": "MANDARIN",
+        "brand": "Mandarin"
+    },
+    {
+        "id": 139429,
+        "name": "Red Seedless Watermelon Whole",
+        "description": "Red Seedless Watermelon Whole Each",
+        "price": 22,
+        "category": "MELONS",
+        "brand": "Red"
+    },
+    {
+        "id": 169792,
+        "name": "Blueberries Punnet",
+        "description": "Blueberries 125g Punnet",
+        "price": 5.5,
+        "category": "BLUEBERRY"
+    },
+    {
+        "id": 245902,
+        "name": "Lime Fresh",
+        "description": "Lime Fresh Each",
+        "price": 1,
+        "category": "CITRUS"
+    },
+    {
+        "id": 306510,
+        "name": "Macro Organic Banana",
+        "description": "Macro Organic Banana Each",
+        "price": 1.08,
+        "category": "ORGANICS",
+        "brand": "Macro"
+    },
+    {
+        "id": 314075,
+        "name": "Mandarin Afourer",
+        "description": "Mandarin Afourer Each",
+        "price": 0.59,
+        "category": "MANDARIN"
+    },
+    {
+        "id": 267084,
+        "name": "Woolworths Sungold Kiwifruit Gold",
+        "description": "Zespri Sungold Kiwifruit Each",
+        "price": 1.2,
+        "category": "TROPICAL FRUIT",
+        "brand": "Woolworths"
+    },
+    {
+        "id": 106218,
+        "name": "Bananas Kids",
+        "description": "Bananas Kids 5 Pack",
+        "price": 3.5,
+        "category": "BANANA"
+    },
+    {
+        "id": 830353,
+        "name": "The Odd Bunch Lemon Prepacked",
+        "description": "The Odd Bunch Lemon Prepacked 500g",
+        "price": 2.5,
+        "category": "CITRUS",
+        "brand": "The Odd Bunch"
+    },
+    {
+        "id": 254080,
+        "name": "Woolworths Navel Oranges",
+        "description": "Woolworths Navel Oranges 3kg Bag",
+        "price": 5.9,
+        "category": "CITRUS",
+        "brand": "Woolworths"
+    },
+    {
+        "id": 145111,
+        "name": "Fresh Beurre Bosc Pear",
+        "description": "Fresh Beurre Bosc Pear Each",
+        "price": 1.04,
+        "category": "PEAR"
+    },
+    {
+        "id": 133390,
+        "name": "Banana Lady Finger",
+        "description": "Banana Lady Finger Each",
+        "price": 1.28,
+        "category": "BANANA"
+    },
+    {
+        "id": 800763,
+        "name": "The Odd Bunch Apples Prepacked Punnet",
+        "description": "The Odd Bunch Apples Prepacked Punnet 1kg",
+        "price": 2.8,
+        "category": "APPLE",
+        "brand": "The Odd Bunch"
+    },
+    {
+        "id": 137534,
+        "name": "Pineapple Naturally Sweet",
+        "description": "Pineapple Naturally Sweet Whole Each",
+        "price": 4.5,
+        "category": "TROPICAL FRUIT"
+    },
+    {
+        "id": 310966,
+        "name": "Woolworths Fresh Granny Smith Apples Punnet",
+        "description": "Woolworths Fresh Granny Smith Apples Punnet 1kg",
+        "price": 4.5,
+        "category": "APPLE",
+        "brand": "Woolworths"
+    },
+    {
+        "id": 381923,
+        "name": "Kanzi Apple",
+        "description": "Kanzi Apple Each",
+        "price": 1.03,
+        "category": "APPLE",
+        "brand": "Kanzi"
+    },
+    {
+        "id": 139806,
+        "name": "Fresh Rockmelon Whole",
+        "description": "Fresh Rockmelon Whole Each",
+        "price": 4.9,
+        "category": "MELONS"
+    },
+    {
+        "id": 180148,
+        "name": "Banana Red Tipped",
+        "description": "Banana Red Tipped Each",
+        "price": 0.99,
+        "category": "BANANA"
+    },
+    {
+        "id": 588064,
+        "name": "Woolworths Fresh Food Kids Mini Apples",
+        "description": "Woolworths Fresh Food Kids Mini Apples 5 Pack",
+        "price": 3,
+        "category": "APPLE",
+        "brand": "Woolworths"
+    },
+    {
+        "id": 306343,
+        "name": "Jazz Apple",
+        "description": "Jazz Apple Each",
+        "price": 1.21,
+        "category": "APPLE",
+        "brand": "Jazz"
+    },
+    {
+        "id": 845671,
+        "name": "The Odd Bunch Mandarin Prepacked",
+        "description": "The Odd Bunch Mandarin Prepacked 1kg",
+        "price": 3.6,
+        "category": "MANDARIN",
+        "brand": "The Odd Bunch"
+    }
+]
