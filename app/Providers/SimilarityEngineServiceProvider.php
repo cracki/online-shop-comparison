@@ -19,14 +19,14 @@ class SimilarityEngineServiceProvider extends ServiceProvider
         $engines = [];
 
         // Scan Services directory for engines
-        $servicesDir = app_path('Services\Similarity\Engines');
+        $servicesDir = app_path('Services\Similarity');
         $files = scandir($servicesDir);
 
         foreach ($files as $file) {
             if (str_contains($file, '.php')) {
                 // Extract engine name from file name
                 $engineName = str_replace('.php', '', $file);
-                $engineClass = 'App\\Services\\Similarity\\Engines\\' . $engineName;
+                $engineClass = 'App\\Services\\Similarity\\' . $engineName;
                 $engines[] = app()->make($engineClass);
             }
         }

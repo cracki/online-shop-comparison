@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Models\OnlineShopProduct;
+use App\Models\ProductCombination;
 use App\Services\ProductSyncService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -32,27 +33,30 @@ class CategoryController extends Controller
     }
 
 
-    public function show(string $id)
+    public function show(Category $category)
     {
-        $category = Category::find($id);
-            $colesProducts = OnlineShopProduct::where('online_shop_id', 1)
-                ->where('category_id', $id)
+        // Retrieve all online shop IDs dynamically
+        $onlineShopIds = $category->products()
+            ->distinct()
+            ->pluck('online_shop_id');
+
+        $products = [];
+
+        foreach ($onlineShopIds as $shopId) {
+            $products[$shopId] = $category->products()
+                ->where('online_shop_id', $shopId)
                 ->get();
-
-            $woolworthsProducts = OnlineShopProduct::where('online_shop_id', 2)
-                ->where('category_id', $id)
-                ->get();
-
-            return view('category.show', [
-                'colesProducts' => $colesProducts,
-                'woolworthsProducts' => $woolworthsProducts,
-                'category' => $category
-            ]);
-
         }
 
+        return view('category.show', [
+            'products' => $products,
+            'category' => $category,
+            'onlineShopIds' => $onlineShopIds,
+        ]);
+    }
 
-        /**
+
+    /**
      * @return View|Factory|Application
      */
     public function create(): View|Factory|Application
@@ -74,9 +78,8 @@ class CategoryController extends Controller
      * @param string $id
      * @return View|Factory|Application
      */
-    public function edit(string $id): View|Factory|Application
+    public function edit(Category $category): View|Factory|Application
     {
-        $category = Category::find($id);
         return view('category.edit', compact('category'));
     }
 
@@ -96,9 +99,9 @@ class CategoryController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function syncProduct(Request $request,string $id)
+    public function syncProduct(Request $request,Category $category)
     {
-
+        //todo: can be moved to Request class
         $data = $request->validate([
             'colesProductIds' => 'required|array',
             'colesProductIds.*' => 'required',
@@ -111,11 +114,19 @@ class CategoryController extends Controller
             $data['woolworthsProductIds'],
            100,
            'manual',
-            $id
+            $category->id
         );
 
         return redirect()->route('category.index')->with('success', 'Category updated successfully.');
     }
 
+    public function showProductsOfCategory(Category $category): View|Factory|Application
+    {
+        $products = $category->ProductCombinations()
+            ->with(['productA', 'productB', 'category'])
+            ->paginate();
+
+        return view('category.index-products', compact('products'));
+    }
 }
 

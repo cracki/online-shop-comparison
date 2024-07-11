@@ -42,6 +42,14 @@
                     @endforeach
                 </select>
             </div>
+            <div class="mb-3">
+                <label for="shop" class="form-label">Select Shop</label>
+                <select name="online_shop_id" id="shop" class="form-control">
+                    @foreach($onlineShops  as $onlineShop)
+                        <option value="{{$onlineShop->id}}">{{$onlineShop->name}}</option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Upload</button>
         </form>
     </div>

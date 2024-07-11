@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\ProductCombination;
 use App\Services\RedirectToCheapestService;
 use Illuminate\View\View;
@@ -26,11 +27,11 @@ class CheapestProductController extends Controller
      * @param string|int $id
      * @return View
      */
-    public function show(string|int $id = 1): View
+    public function show(Category $category): View
     {
-
-        $products = ProductCombination::where('category_id',1)
+        $products = $category->ProductCombinations()
             ->with(['productA', 'productB'])
+            ->where('percentage','>','80') //todo: this must be chosen carefully
             ->get()
             ->map(function ($productCombination) {
                 if ($productCombination->productA->price < $productCombination->productB->price) {
@@ -39,7 +40,7 @@ class CheapestProductController extends Controller
                     return $productCombination->productB;
                 }
             })
-            ->sortBy('price');
+             ->all(); // todo: paginate in production
 
         return view('cheapestProduct.show', compact('products'));
     }

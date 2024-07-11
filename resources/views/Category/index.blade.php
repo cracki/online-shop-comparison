@@ -34,16 +34,22 @@
                             @foreach($categories as $category)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit Category">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="{{ route('category.show', $category->id) }}" class="btn btn-sm btn-info">
+                                        <a href="{{ route('category.show', $category->id) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="sync product">
                                             <i class="fas fa-sync"></i>
                                         </a>
+                                        <a href="{{ route('index-product', $category->id) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="show products">
+                                            <i class="fas fa-book-open"></i>
+                                        </a>
+                                        <a href="{{ route('compare.category.products', $category->id) }}" class="btn btn-sm btn-primary" data-toggle="tooltip" title="compare products">
+                                            <i class="fas fa-search"></i>
+                                        </a>
                                     </td>
-                                    <td>{{$category->name}}</td>
-                                    <td>{{$category->description}}</td>
-                                    <td>{{$category->created_at}}</td>
+                                    <td>{{ $category->name }}</td>
+                                    <td>{{ $category->description }}</td>
+                                    <td>{{ $category->created_at }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -52,7 +58,7 @@
                 </div>
                 <div class="card-footer clearfix">
                     <div class="float-right">
-{{--                        {{ $categories->links() }}--}}
+                        {{-- {{ $categories->links() }} --}}
                     </div>
                 </div>
             </div>
@@ -80,5 +86,10 @@
 @endsection
 
 @section('js')
-    {{-- Add your JS scripts here --}}
+    {{-- Initialize tooltips --}}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 @endsection

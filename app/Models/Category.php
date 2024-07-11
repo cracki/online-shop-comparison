@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
@@ -12,8 +12,16 @@ class Category extends Model
 
     protected $fillable = ['name', 'description'];
 
-//    public function products(): BelongsToMany
-//    {
-//        return $this->belongsToMany(OnlineShopProduct::class, 'category_has_products', 'category_id', 'product_id');
-//    }
+    /**
+     * @return HasMany
+     */
+    public function ProductCombinations(): HasMany
+    {
+        return $this->hasMany(ProductCombination::class, 'category_id');
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(OnlineShopProduct::class, 'category_id');
+    }
 }

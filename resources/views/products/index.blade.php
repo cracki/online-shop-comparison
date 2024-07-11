@@ -24,30 +24,18 @@
                         <table class="table table-hover table-striped">
                             <thead>
                             <tr>
-                                <th>Actions</th>
                                 <th>Product A Name</th>
                                 <th>Product B Name</th>
                                 <th>Category</th>
-                                <th>Percentage</th>
-                                <th>Engine Type</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($products as $product)
                                 <tr>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-sm btn-info">
-                                            <i class="fas fa-sync"></i>
-                                        </a>
                                     </td>
                                     <td>{{ $product->productA->name ?? 'N/A' }}</td>
                                     <td>{{ $product->productB->name ?? 'N/A' }}</td>
                                     <td>{{ $product->category->name ?? 'N/A' }}</td>
-                                    <td>{{ $product->percentage }}</td>
-                                    <td>{{ $product->engine_type }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -4,30 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Events\ProductsImported;
 use App\Models\Category;
+use App\Models\OnlineShop;
 use App\Models\OnlineShopProduct;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class StoreJsonController extends Controller
 {
     public function showUploadForm(): View|Factory|Application
     {
         $categories = Category::all();
-        return view('upload', compact('categories'));
+        $onlineShops = OnlineShop::all();
+        return view('upload', compact('categories','onlineShops'));
     }
 
     public function uploadJson(Request $request): RedirectResponse
     {
+
         $request->validate([
             'jsonFile' => 'required|file|mimes:json|max:2048',
             'category' => 'required|exists:categories,id', // Ensure category exists in categories table
         ]);
 
         $category_id = $request->input('category');
+        $online_shop_id = $request->input('online_shop_id');
 
         $file = $request->file('jsonFile');
         $jsonContent = file_get_contents($file->getRealPath());
@@ -42,26 +45,14 @@ class StoreJsonController extends Controller
                 'name' => $item['name'],
                 'description' => $item['description'],
                 'category' => $item['category'],
-                'online_shop_id' => $item['online_shop_id']?? 2,
+                'online_shop_id' => $online_shop_id,
                 'category_id' => $category_id,
             ]);
         }
 
-        // Check if all products have the same online_shop_id and dispatch event if true
-
-        if (!$this->checkIfAllProductsHaveSameOnlineShopId()) {
-            event(new ProductsImported());
-        }
+        event(new ProductsImported($category_id));
 
         return redirect()->back()->with('success', 'JSON data imported successfully');
     }
 
-    /**
-     * @return bool
-     */
-    private function checkIfAllProductsHaveSameOnlineShopId(): bool
-    {
-        $distinctOnlineShopCount = OnlineShopProduct::select('online_shop_id')->distinct()->count();
-        return $distinctOnlineShopCount == 1;
-    }
 }

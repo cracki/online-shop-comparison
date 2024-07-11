@@ -14,16 +14,22 @@ class ProductsImported
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+
+    public int $category_id;
+
     /**
      * Create a new event instance.
+     *
+     * @param int $category_id
      */
-    public function __construct()
+    public function __construct(int $category_id)
     {
-        //
+        $this->category_id = $category_id;
     }
 
     public function importProducts()
     {
+
         // After import is done, fire the event
         event(new ProductsImported());
     }

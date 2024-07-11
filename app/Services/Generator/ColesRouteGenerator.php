@@ -13,9 +13,7 @@ class ColesRouteGenerator implements RouteGeneratorInterface
         $name = str_replace(' ','-','Tip Top The One White Sandwich Bread');
         $size = $product->size;
         $id = $product->origin_id;
-        $route = 'https://www.coles.com.au'  .'/product' .'/' .$name .'-' .$size .'-' .$id;
-
-        return $route;
+        return 'https://www.coles.com.au'  .'/product' .'/' .$name .'-' .$size .'-' .$id;
 
     }
 

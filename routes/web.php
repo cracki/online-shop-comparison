@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheapestProductController;
 use App\Http\Controllers\ProductController;
@@ -11,20 +10,20 @@ Auth::routes();
 
 Route::redirect('/', 'login');
 
-Route::resource('category', CategoryController::class)->except(['destroy']);
+Route::middleware('auth')->group(function () {
 
-Route::resource('product', ProductController::class)->only([
-    'index', 'show'
-]);
+    Route::resource('category', CategoryController::class)->except(['destroy']);
 
-Route::get('show-products/{category?}',[CheapestProductController::class,'show']);
+    Route::get('product', ProductController::class)->name('product.index');
 
-Route::post('cheapest-product/{product}',[CheapestProductController::class,'redirect'])->name('cheapest-product');
-Route::post('sync-product/{category}',[CategoryController::class,'syncProduct'])->name('sync-product');
+    Route::get('show-products/{category}', [CheapestProductController::class, 'show'])->name('compare.category.products');
 
+    Route::post('cheapest-product/{product}', [CheapestProductController::class, 'redirect'])->name('cheapest-product');
+    Route::post('sync-product/{category}', [CategoryController::class, 'syncProduct'])->name('sync-product');
 
-Route::get('/upload', [StoreJsonController::class, 'showUploadForm'])->name('upload.form');
-Route::post('/upload-json', [StoreJsonController::class, 'uploadJson'])->name('upload.json');
+    Route::get('index-product/{category}', [CategoryController::class, 'showProductsOfCategory'])->name('index-product');
 
-Route::get('test',[\App\Http\Controllers\Backend\ProductController::class,'compare']);
-Route::get('test1',[\App\Http\Controllers\Backend\ProductController::class,'compare1']);
+    Route::get('/upload', [StoreJsonController::class, 'showUploadForm'])->name('upload.form');
+    Route::post('/upload-json', [StoreJsonController::class, 'uploadJson'])->name('upload.json');
+
+});
