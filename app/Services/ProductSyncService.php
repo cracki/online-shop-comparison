@@ -20,12 +20,14 @@ class ProductSyncService
     public function storeCategoryProducts(array $productAIds, array $productBIds, array|int $percentage, string $engineType, int $categoryId): void
     {
         DB::transaction(function () use ($productAIds, $productBIds, $percentage, $engineType, $categoryId) {
-            for ($i = 0; $i < count($productAIds); $i++) {
-                $currentPercentage = is_array($percentage) ? $percentage[$i] : $percentage;
+            foreach ($productAIds as $index => $productAId) {
+                // Determine the current percentage, either as an array element or a single value
+                $currentPercentage = is_array($percentage) ? $percentage[$index] : $percentage;
 
+                // Create a new ProductCombination record
                 ProductCombination::create([
-                    'productA_id' => $productAIds[$i],
-                    'productB_id' => $productBIds[$i],
+                    'productA_id' => $productAId,
+                    'productB_id' => $productBIds[$index],
                     'percentage' => $currentPercentage,
                     'engine_type' => $engineType,
                     'category_id' => $categoryId,

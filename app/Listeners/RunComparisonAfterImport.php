@@ -28,25 +28,47 @@ class RunComparisonAfterImport
      */
     public function handle(ProductsImported $event): void
     {
+        //Getting Working Category
         $category_id = $event->category_id;
 
+        //Retrieve all OnlineShop ids in this category
         $shopIds = $this->getDistinctShopIds($category_id);
-        foreach ($shopIds as $shopIdA) {
-            foreach ($shopIds as $shopIdB) {
-                if ($shopIdA !== $shopIdB) {
-                    $productsA = $this->getProductsByShopId($shopIdA, $category_id);
-                    $productsB = $this->getProductsByShopId($shopIdB, $category_id);
 
-                    $results = $this->calculateSimilarities($productsA, $productsB);
+        // Ensure there are at least two shops to compare
+        if (count($shopIds) < 2) {
+            // Handle the case where there's only one shop (or none)
+            return;
+        }
 
-                    foreach ($results as $engineClass => $similarities) {
-                        [$productAIds, $productBIds, $similarityValues] = $this->extractSimilarities($similarities);
-                        $engineName = (new \ReflectionClass($engineClass))->getShortName();
-                        $this->productSyncService->storeCategoryProducts($productAIds, $productBIds, $similarityValues, $engineName, $category_id);
-                    }
+        //Chose the first one for compare base
+        $firstShopID = reset($shopIds);
+
+        //Get the First OnlineShop Products
+        $productsA = $this->getProductsByShopId($firstShopID, $category_id);
+
+        foreach ($shopIds as $shopIdB) { // Handling multiple online shops
+            if ($shopIdB !== $firstShopID) { // Skip the first shop as it is used as the comparison base
+
+                // Get the products for the current shop (shopIdB) within the same category
+                $productsB = $this->getProductsByShopId($shopIdB, $category_id);
+
+                // Calculate similarities between products from the first shop and the current shop
+                $results = $this->calculateSimilarities($productsA, $productsB);
+
+                // Iterate through the results for different similarity engines
+                foreach ($results as $engineClass => $similarities) {
+                    // Extract product IDs and similarity values from the results
+                    [$productAIds, $productBIds, $similarityValues] = $this->extractSimilarities($similarities);
+
+                    // Get the short name of the similarity engine class
+                    $engineName = (new \ReflectionClass($engineClass))->getShortName();
+
+                    // Store the similarity data for category products in the database
+                    $this->productSyncService->storeCategoryProducts($productAIds, $productBIds, $similarityValues, $engineName, $category_id);
                 }
             }
         }
+
     }
 
     /**
