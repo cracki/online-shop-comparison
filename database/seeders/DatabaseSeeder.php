@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'coles', 'base_url' => 'https://www.coles.com.au'],
             ['name' => 'woolworths', 'base_url' => 'https://www.woolworths.com.au'],
         ]);
-
+//
 //        foreach ($categories as $category) {
 //            foreach ($onlineShops as $shop) {
 //                OnlineShopProduct::factory(10)->create([

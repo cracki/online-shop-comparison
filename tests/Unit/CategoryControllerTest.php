@@ -3,23 +3,21 @@
 namespace Tests\Unit;
 
 use App\Models\Category;
+use App\Models\User;
 use App\Models\OnlineShopProduct;
-use App\Services\ProductSyncService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Mockery;
 use Tests\TestCase;
 
 class CategoryControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected $productSyncService;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->productSyncService = Mockery::mock(ProductSyncService::class);
-        $this->app->instance(ProductSyncService::class, $this->productSyncService);
+
+        // Create and authenticate a user
+        $user = User::factory()->create();
+        $this->actingAs($user);
     }
 
     /** @test */
@@ -61,6 +59,7 @@ class CategoryControllerTest extends TestCase
             return $collection->contains($woolworthsProduct);
         });
     }
+
 
     /** @test */
     public function it_can_display_the_create_category_form()
@@ -119,5 +118,4 @@ class CategoryControllerTest extends TestCase
         $response->assertRedirect(route('category.index'));
         $response->assertSessionHas('success', 'Category updated successfully.');
     }
-
 }

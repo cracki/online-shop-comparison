@@ -22,20 +22,22 @@ class RunComparisonAfterImport
 
     /**
      * Handle the event.
+     *
+     * @param ProductsImported $event
+     * @return void
      */
     public function handle(ProductsImported $event): void
     {
         $category_id = $event->category_id;
 
         $shopIds = $this->getDistinctShopIds($category_id);
-
         foreach ($shopIds as $shopIdA) {
             foreach ($shopIds as $shopIdB) {
                 if ($shopIdA !== $shopIdB) {
-                    $categoryA = $this->getProductsByShopId($shopIdA, $category_id);
-                    $categoryB = $this->getProductsByShopId($shopIdB, $category_id);
+                    $productsA = $this->getProductsByShopId($shopIdA, $category_id);
+                    $productsB = $this->getProductsByShopId($shopIdB, $category_id);
 
-                    $results = $this->calculateSimilarities($categoryA, $categoryB);
+                    $results = $this->calculateSimilarities($productsA, $productsB);
 
                     foreach ($results as $engineClass => $similarities) {
                         [$productAIds, $productBIds, $similarityValues] = $this->extractSimilarities($similarities);
@@ -50,10 +52,10 @@ class RunComparisonAfterImport
     /**
      * Get distinct shop IDs for a given category.
      *
-     * @param string $category_id
+     * @param int $category_id
      * @return array
      */
-    protected function getDistinctShopIds(string $category_id): array
+    protected function getDistinctShopIds(int $category_id): array
     {
         return OnlineShopProduct::where('category_id', $category_id)
             ->distinct()
@@ -65,10 +67,10 @@ class RunComparisonAfterImport
      * Get products by shop ID.
      *
      * @param int $shopId
-     * @param string $category_id
+     * @param int $category_id
      * @return array
      */
-    protected function getProductsByShopId(int $shopId, string $category_id): array
+    protected function getProductsByShopId(int $shopId, int $category_id): array
     {
         return OnlineShopProduct::where('online_shop_id', $shopId)
             ->where('category_id', $category_id)
@@ -80,17 +82,17 @@ class RunComparisonAfterImport
     /**
      * Calculate similarities between two categories of products.
      *
-     * @param array $categoryA
-     * @param array $categoryB
+     * @param array $productsA
+     * @param array $productsB
      * @return array
      */
-    protected function calculateSimilarities(array $categoryA, array $categoryB): array
+    protected function calculateSimilarities(array $productsA, array $productsB): array
     {
         $engines = app('similarityEngines');
         $results = [];
 
         foreach ($engines as $engine) {
-            $results[get_class($engine)] = $engine->calculateSimilarities($categoryA, $categoryB)->getSimilarities();
+            $results[get_class($engine)] = $engine->calculateSimilarities($productsA, $productsB)->getSimilarities();
         }
 
         return $results;
@@ -106,14 +108,14 @@ class RunComparisonAfterImport
     {
         $productAIds = [];
         $productBIds = [];
-        $similarities = [];
+        $similarityValues = [];
 
         foreach ($results as $item) {
             $productAIds[] = $item["product_a_id"];
             $productBIds[] = $item["product_b_id"];
-            $similarities[] = $item["similarity"];
+            $similarityValues[] = $item["similarity"];
         }
 
-        return [$productAIds, $productBIds, $similarities];
+        return [$productAIds, $productBIds, $similarityValues];
     }
 }

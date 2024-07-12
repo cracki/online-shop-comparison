@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ProductsImported;
+use App\Http\Requests\UploadJsonRequest;
 use App\Models\Category;
 use App\Models\OnlineShop;
 use App\Models\OnlineShopProduct;
@@ -10,7 +11,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class StoreJsonController extends Controller
 {
@@ -18,17 +18,11 @@ class StoreJsonController extends Controller
     {
         $categories = Category::all();
         $onlineShops = OnlineShop::all();
-        return view('upload', compact('categories','onlineShops'));
+        return view('upload', compact('categories', 'onlineShops'));
     }
 
-    public function uploadJson(Request $request): RedirectResponse
+    public function uploadJson(UploadJsonRequest $request): RedirectResponse
     {
-
-        $request->validate([
-            'jsonFile' => 'required|file|mimes:json|max:2048',
-            'category' => 'required|exists:categories,id', // Ensure category exists in categories table
-        ]);
-
         $category_id = $request->input('category');
         $online_shop_id = $request->input('online_shop_id');
 
@@ -50,9 +44,9 @@ class StoreJsonController extends Controller
             ]);
         }
 
+
         event(new ProductsImported($category_id));
 
         return redirect()->back()->with('success', 'JSON data imported successfully');
     }
-
 }

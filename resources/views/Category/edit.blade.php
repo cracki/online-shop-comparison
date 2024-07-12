@@ -11,7 +11,6 @@
                         <div class="card-header">
                             <h3 class="card-title">Edit Category</h3>
                         </div>
-                        <!-- /.card-header -->
                         <!-- form start -->
                         <form action="{{ route('category.update', $category->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -19,23 +18,11 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="categoryname">Category Name</label>
-                                    <input type="text" class="form-control" id="categoryname" name="name" placeholder="Enter category" value="{{ $category->name }}" required>
+                                    <input type="text" class="form-control" id="categoryname" name="name" placeholder="Enter category name" value="{{ old('name', $category->name) }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <input type="text" class="form-control" id="description" name="description" placeholder="Enter description" value="{{ $category->description }}" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputFile">File input</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
-                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">Upload</span>
-                                        </div>
-                                    </div>
+                                    <textarea class="form-control" id="description" name="description" placeholder="Enter description" required>{{ old('description', $category->description) }}</textarea>
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -53,7 +40,7 @@
 @endsection
 
 @section('css')
-    {{-- Add your extra stylesheets here --}}
+    <!-- Add your extra stylesheets here -->
 @stop
 
 @section('js')
